@@ -1,13 +1,12 @@
-import fake_math as f_m
-import true_math as t_m
+from fastapi import FastAPI
+from routers import task
+from routers import user
 
-result1 = f_m.divide(69, 3)
-result2 = f_m.divide(3, 0)
-result3 = t_m.divide(49, 7)
-result4 = t_m.divide(15, 0)
-print(result1)
-print(result2)
-print(result3)
-print(result4)
+app = FastAPI()
 
+@app.get("/")
+async def welcome():
+    return {"message" : "Welcome to TaskManager"}
 
+app.include_router(task.router)
+app.include_router(user.router)
